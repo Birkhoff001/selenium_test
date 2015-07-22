@@ -17,15 +17,24 @@ class Uqee:
 			try:
 				self.browser.find_element_by_link_text('登录').click()
 				print "click login button."
-				break
+				break;
 			except NoSuchElementException:
 				print "element not loaded yet."
 				time.sleep(2)
+
+	def cookie(self):
+		self.browser.add_cookie({'name':'birkhoff', 'value':'111111'})
+		for cookie in browser.get_cookies():
+			print "%s -> %s" % (cookie['name'], cookie['value'])
+			cookie = browser.get_cookies()
+			print cookie
 
 	def login(self):
 		self.browser.find_element_by_id('username').send_keys(username)
 		self.browser.find_element_by_id('userpwd').send_keys(passwd)
 		self.browser.find_element_by_class_name('login_btn').click()
+
+	
 
 def main():
 	uqee = Uqee() 
