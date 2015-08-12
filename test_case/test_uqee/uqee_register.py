@@ -17,9 +17,9 @@ class Uqee(unittest.TestCase):
 
 	def test_cookie(self):
 		self.browser.add_cookie({'name':'birkhoff', 'value':'333333'})
-		for cookie in browser.get_cookies():
+		for cookie in self.browser.get_cookies():
 			print "%s -> %s" % (cookie['name'], cookie['value'])
-			cookie = browser.get_cookies()
+			cookie = self.browser.get_cookies()
 			print cookie
 
 	def test_login(self):
@@ -36,18 +36,19 @@ class Uqee(unittest.TestCase):
 	def test_register(self):
 		try:
 			self.browser.find_element_by_link_text('注册').click()
+			self.browser.find_element_by_id('username').send_keys('birkhoff')
+			self.browser.find_element_by_id('userpwd').send_keys('111111')
+			self.browser.find_element_by_id('userpwdok').send_keys('111111')
+			self.browser.find_element_by_id('email').send_keys('123456@163.com')
+			self.browser.find_element_by_id('truename').send_keys('liuyi')
+			self.browser.find_element_by_id('idcard').send_keys('1234567890')
+			self.browser.find_element_by_id('vdcode').send_keys()   #图形验证码
+			self.browser.find_element_by_id('imageField').click()
 			print "click register button."
 		except NoSuchElementException:
 			print "element not finded yet."
 			time.sleep(2)
-		self.browser.find_element_by_id('username').send_keys('birkhoff')
-		self.browser.find_element_by_id('userpwd').send_keys('111111')
-		self.browser.find_element_by_id('userpwdok').send_keys('111111')
-		self.browser.find_element_by_id('email').send_keys('123456@163.com')
-		self.browser.find_element_by_id('truename').send_keys('liuyi')
-		self.browser.find_element_by_id('idcard').send_keys('1234567890')
-		self.browser.find_element_by_id('vdcode').send_keys()   #图形验证码
-		self.browser.find_element_by_id('imageField').click()
+		
 
 	def test_login_none(self):
 		try:
