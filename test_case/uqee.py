@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
+import HTMLTestRunner
 
 class Uqee(unittest.TestCase):
 	def setUp(self):
@@ -13,43 +14,42 @@ class Uqee(unittest.TestCase):
 		self.base_url = "http://www.uqee.com"
 		self.verificationErrors = []
 		self.accept_next_alert = True
+		self.browser.get(self.base_url + "/")
 
 	def test_cookie(self):
-		self.browser.add_cookie({'name':'birkhoff', 'value':'333333'})
-		for cookie in browser.get_cookies():
+		#self.browser.add_cookie({'name':'birkhoff', 'value':'333333'})
+		for cookie in self.browser.get_cookies():
 			print "%s -> %s" % (cookie['name'], cookie['value'])
-			cookie = browser.get_cookies()
+			cookie = self.browser.get_cookies()
 			print cookie
 
 	def test_login(self):
 		try:
 			self.browser.find_element_by_link_text('登录').click()
+			self.browser.find_element_by_id('username').send_keys(username)
+			self.browser.find_element_by_id('userpw').send_keys(passwd)
+			self.browser.find_element_by_class_name('login_btn').click()
 			print "click login button."
-		except NoSuchElementException:
+		except:
+			browser.get_screenshot_as_file("D:\msysgit\msysgit\git\selenium_test\login_err.png")
 			print "element not finded yet."
 			time.sleep(2)
-
-		self.browser.find_element_by_id('username').send_keys(username)
-		self.browser.find_element_by_id('userpw').send_keys(passwd)
-		self.browser.find_element_by_class_name('login_btn').click()
-
-
 
 	def test_register(self):
 		try:
 			self.browser.find_element_by_link_text('注册').click()
-			print "click register button."
+			print "click register button."		
+			self.browser.find_element_by_id('username').send_keys('birkhoff')
+			self.browser.find_element_by_id('userpwd').send_keys('111111')
+			self.browser.find_element_by_id('userpwdok').send_keys('111111')
+			self.browser.find_element_by_id('email').send_keys('123456@163.com')
+			self.browser.find_element_by_id('truename').send_keys('liuyi')
+			self.browser.find_element_by_id('idcard').send_keys('1234567890')
+			self.browser.find_element_by_id('vdcode').send_keys()   #图形验证码
+			self.browser.find_element_by_id('imageField').click()
 		except NoSuchElementException:
 			print "element not finded yet."
 			time.sleep(2)
-		self.browser.find_element_by_id('username').send_keys('birkhoff')
-		self.browser.find_element_by_id('userpwd').send_keys('111111')
-		self.browser.find_element_by_id('userpwdok').send_keys('111111')
-		self.browser.find_element_by_id('email').send_keys('123456@163.com')
-		self.browser.find_element_by_id('truename').send_keys('liuyi')
-		self.browser.find_element_by_id('idcard').send_keys('1234567890')
-		self.browser.find_element_by_id('vdcode').send_keys()   #图形验证码
-		self.browser.find_element_by_id('imageField').click()
 
 	def test_login_none(self):
 		try:
@@ -71,7 +71,7 @@ class Uqee(unittest.TestCase):
 		try:
 			qq = self.browser.find_element_by_xpath("/Public/new/images/login_qq.jpg").click()
 			weibo = self.browser.find_element_by_xpath("/Public/new/images/login_wb.jpg").click()
-			renren = self.browse.find_element_by_xpath("/Public/new/images/login_rr.jpg").click()
+			renren = self.browser.find_element_by_xpath("/Public/new/images/login_rr.jpg").click()
 			if (qq == 0 ):
 				self.browser.find_element_by_id('switcher_plogin').click()
 				self.browser.find_element_by_id('u').send_keys('123456')
@@ -112,11 +112,14 @@ if __name__ == "__main__":
 	#structure test suites
 	suite = unittest.TestSuite()
 	suite.addTest(Uqee("test_cookie"))
-	suite.addTest(Uqee("test_login"))
+	suite.addTest(Uqee("test_register"))
+	rep = file('D:\msysgit\msysgit\git\selenium_test\log.html', 'wb')
+	runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
 
 	#runing test
-	runner = unittest.TextTestRunner()
+	#runner = unittest.TextTestRunner()
 	runner.run(suite)
+
 
 
 
