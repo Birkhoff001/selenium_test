@@ -1,0 +1,11 @@
+<div>
+ <img id="authcode_img" alt="验证码" src="/registration/makeimage/{{time}}"/>  
+ <!-- time 任意随机数（时间戳），防止页面缓存 导致验证码不能更新-->
+ <a href="javascript:refreshCode();" rel="external nofollow" style="color:blue;">看不清换一张</a>
+</div>
+ 
+<script>
+ function refreshCode() {
+   $('authcode_img').src = "/registration/makeimage/" + Math.random();
+ }
+</script>

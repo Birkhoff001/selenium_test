@@ -1,14 +1,49 @@
 #-*- coding= utf-8 -*
 import Image
+import ImageFilter
 #read the image
 #choose the delay of longest PIL,obtain every PIL duration information,and the max is the goal
 Duration = 1000
-ima = Image.open(fname)
+def open_pic():
+	try:
+		ima = Image.open(imagename)
+		print ima.format, ima.size, ima.mode
+	except Exception, e:
+		print "load image ......failed!"
+	ima.show()
+
+def binaryzation():
+	coordinate = (100, 100, 200,200)
+	region = ima.crop(coordinate)
+	region.show()
+	#region = region.transpose(Image.ROTATE_180)     //旋转图片180°
+	region.convert("RGBA")
+
+	imafilter = ima.filter(ImageFilter.DETAIL)
+	imafilter.show()
+	for x in xrange(ima.size[1]):
+		for y in xrange(ima.size[0]):
+			if ima.load()[x,y][0] < 90):
+				ima.load()[x,y] = (0,0,0,255)
+
+	for x in xrange(ima.size[1]):
+		for y in xrange(ima.size[0]):
+			if ima.load()[x,y][1] < 136:
+				ima.load()[x,y] = (0,0,0,255)
+
+	for x in xrange(ima.size[1]):
+		for y in xrange(ima.size[0]):
+			if ima.load[x,y][2] > 0:
+				ima.load[x,y] = (255,255,255,255)
+	ima.show()
+	ima.save(path + f)
+
+
 load_ima = []
 index_ima = 0
 for i in range(10):
 	im.seek(i)
-	load_ima.append(im.load())
+	load_ima.append(ima.load())
 	if im.info['duration'] > Duration:
 		index_ima = i
 load_imas = load_ima[index_ima]
@@ -44,7 +79,7 @@ for (k, v) in topd:
 		print k, 'is noise'
 
 	if found == 4:
-		break
+		break;
 return load_imas
 
 def printload_imas(load_imas, code = -1):
