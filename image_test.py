@@ -13,28 +13,32 @@ def open_pic():
 	ima.show()
 
 def binaryzation():
-	coordinate = (100, 100, 200,200)
-	region = ima.crop(coordinate)
-	region.show()
-	#region = region.transpose(Image.ROTATE_180)     //旋转图片180°
-	region.convert("RGBA")
+	try:
+		coordinate = (100, 100, 200,200)
+		region = ima.crop(coordinate)
+		region.show()
+		#region = region.transpose(Image.ROTATE_180)     //旋转图片180°
+		region.convert("RGBA")
 
-	imafilter = ima.filter(ImageFilter.DETAIL)
-	imafilter.show()
-	for x in xrange(ima.size[1]):
-		for y in xrange(ima.size[0]):
-			if ima.load()[x,y][0] < 90):
-				ima.load()[x,y] = (0,0,0,255)
+		imafilter = ima.filter(ImageFilter.DETAIL)
+		imafilter.show()
+		for x in xrange(ima.size[1]):
+			for y in xrange(ima.size[0]):
+				if ima.load()[x,y][0] < 90):
+					ima.load()[x,y] = (0,0,0,255)
 
-	for x in xrange(ima.size[1]):
-		for y in xrange(ima.size[0]):
-			if ima.load()[x,y][1] < 136:
-				ima.load()[x,y] = (0,0,0,255)
+		for x in xrange(ima.size[1]):
+			for y in xrange(ima.size[0]):
+				if ima.load()[x,y][1] < 136:
+					ima.load()[x,y] = (0,0,0,255)
 
-	for x in xrange(ima.size[1]):
-		for y in xrange(ima.size[0]):
-			if ima.load[x,y][2] > 0:
-				ima.load[x,y] = (255,255,255,255)
+		for x in xrange(ima.size[1]):
+			for y in xrange(ima.size[0]):
+				if ima.load[x,y][2] > 0:
+					ima.load[x,y] = (255,255,255,255)
+
+	except Exception, e:
+		print "the binaryzation failed..."
 	ima.show()
 	ima.save(path + f)
 

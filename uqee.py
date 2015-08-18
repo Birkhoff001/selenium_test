@@ -30,8 +30,10 @@ class Uqee(unittest.TestCase):
 		except:
 			print "element not finded yet."
 			browser.get_screenshot_as_file("D:\msysgit\msysgit\git\selenium_test\log_err.png")
-			time.sleep(2)	
-	'''def Image(self):
+			time.sleep(2)
+
+	#Verification code recognition：open image-->clear color-->de-noising-->
+	def Image(self):
 		threshold = 140
 		table = []
 		for i in range(256):
@@ -45,7 +47,6 @@ class Uqee(unittest.TestCase):
 		#change to lightness
 		imagry = im.convert('L')
 		imagry.save('g' + name)
-		#
 		out = imagry.point(table, '1')
 		out.save('b' + name)
 		#recognition
