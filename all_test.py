@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 import unittest
 import sys, re, os, math
-sys.path.append("D:\msysgit\msysgit\git\selenium_test\\test_case")
+sys.path.append(path)
 #from suite import * 
 from test_case import *
 import allcase_list
