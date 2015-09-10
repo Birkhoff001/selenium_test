@@ -8,11 +8,11 @@ import unittest, time, re
 import HTMLTestRunner
 import socket_client
 
-class Uqee(unittest.TestCase):
+class Game(unittest.TestCase):
 	def setUp(self):
 		self.browser = webdriver.Firefox()
 		self.browser.implicitly_wait(30)
-		self.base_url = "http://www.uqee.com"
+		self.base_url = "http://10.0.6.5/game/game.html"
 		self.verificationErrors = []
 		self.accept_next_alert = True
 		self.browser.get(self.base_url + "/")
@@ -25,16 +25,34 @@ class Uqee(unittest.TestCase):
 			print cookie
 
 	def test_login(self):
+		username = "allen"
+		password = "limi"
+		identifying_code = image_game()
 		try:
-			self.browser.find_element_by_link_text('登录').click()
 			self.browser.find_element_by_id('username').send_keys(username)
-			self.browser.find_element_by_id('userpw').send_keys(passwd)
-			self.browser.find_element_by_class_name('login_btn').click()
+			self.browser.find_element_by_id('password').send_keys(passwd)
+			self.browser.find_element_by_id('codes').send_keys()
+			self.browser.find_element_by_id('rememberPswd').value(168)
+			self.browser.find_element_by_class_name('linkbtn-text').click(identifying_code)
+			image = self.browser.find_element_by_xpath("//span[@id='randImage']/input").get_attribute("src")
+
 			print "click login button."
 		except:
 			browser.get_screenshot_as_file("D:\msysgit\msysgit\git\selenium_test\login_err.png")
 			print "element not finded yet."
 			time.sleep(2)
+
+	def test_save_image(path, image, data):
+		if data == None:
+			return
+
+		mkdir(path)
+		if not path.endswith("/"):
+			path = path + "/"
+		images = open(path + test_login.image, "wb")
+		images.write(data)
+		images.flush()
+		images.close()
 
 	def test_register(self):
 		try:
@@ -112,8 +130,9 @@ class Uqee(unittest.TestCase):
 if __name__ == "__main__":
 	#structure test suites
 	suite = unittest.TestSuite()
-	suite.addTest(Uqee("test_cookie"))
-	suite.addTest(Uqee("test_login"))
+	suite.addTest(Game("test_cookie"))
+	suite.addTest(Game("test_login"))
+	suite.addTest(Game("test_save_image"))
 	socket_client.socket_client()
 	rep = file('D:\msysgit\msysgit\git\selenium_test\log.html', 'wb')
 	runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
