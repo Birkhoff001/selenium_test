@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 import socket
 import sys
+import game
 def socket_client():
 	try:
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -20,6 +21,9 @@ def socket_client():
 
 	s.connect((remote_ip, port))
 	print 'Socket connect to' + " " + host
+	s.send(image)
+	data = s.recv(1024)
+	print "Reply from server------%s" %data
 
 	
 

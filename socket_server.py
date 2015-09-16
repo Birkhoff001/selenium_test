@@ -30,7 +30,18 @@ def socket_server():
         print 'accept connect failed...' + str(e)
     print 'Connected with' + " " + str(addr[0])
 
-image_test()
+    while True:
+        try:
+            if:
+                client, ipaddr = s.accept()
+            print "Got a connect from %s" %str(ipaddr)
+            if:
+                data = client.recv(1024)
+            print "receive data:%s" %data
+            client.send("echo:" + data)
+            image_game()
+            client.close()
+
 
 if __name__ == "__main__":
     socket_server()
