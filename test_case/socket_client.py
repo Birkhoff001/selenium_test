@@ -21,7 +21,7 @@ def socket_client():
 	s.connect((remote_ip, port))
 	print 'Socket connect to' + " " + host
 
-	message = " "
+	
 
 if __name__ == "__main__":
 	socket_client()

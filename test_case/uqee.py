@@ -10,9 +10,9 @@ import socket_client
 
 class Uqee(unittest.TestCase):
 	def setUp(self):
-		self.browser = webdriver.Firefox()
+		self.browser = webdriver.Chrome()
 		self.browser.implicitly_wait(30)
-		self.base_url = "http://www.uqee.com"
+		self.base_url = "http://uqee.com"
 		self.verificationErrors = []
 		self.accept_next_alert = True
 		self.browser.get(self.base_url + "/")
@@ -32,7 +32,7 @@ class Uqee(unittest.TestCase):
 			self.browser.find_element_by_class_name('login_btn').click()
 			print "click login button."
 		except:
-			browser.get_screenshot_as_file("D:\msysgit\msysgit\git\selenium_test\login_err.png")
+			self.browser.get_screenshot_as_file("F:\selenium_test\login_err.png")
 			print "element not finded yet."
 			time.sleep(2)
 
@@ -115,7 +115,7 @@ if __name__ == "__main__":
 	suite.addTest(Uqee("test_cookie"))
 	suite.addTest(Uqee("test_login"))
 	socket_client.socket_client()
-	rep = file('D:\msysgit\msysgit\git\selenium_test\log.html', 'wb')
+	rep = file('F:\selenium_test\log.html', 'wb')
 	runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
 
 	#runing test

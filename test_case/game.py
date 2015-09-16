@@ -34,16 +34,19 @@ class Game(unittest.TestCase):
 			self.browser.find_element_by_id('codes').send_keys()
 			self.browser.find_element_by_id('rememberPswd').value(168)
 			self.browser.find_element_by_class_name('linkbtn-text').click(identifying_code)
-			image = self.browser.find_element_by_xpath("//span[@id='randImage']/input").get_attribute("src")
-			#save the image
-			image_save = open(image, 'wb').write(data)
-			image_save.flush()
-			image_save.close()
-
+			if (self.browser.find_element_by_xpath("//span[@id='randImage']/input") == NULL):
+				image = self.browser.find_element_by_xpath("//span[@id='randImage']/input").get_attribute("src")
+				print "screenshot the image."
+				#save the image
+				image_save = open(image, 'wb').write(data)
+				image_save.flush()
+				image_save.close()
+			else:
+				print "not found identifying code."
 
 			print "click login button."
 		except:
-			self.browser.get_screenshot_as_file("D:\msysgit\msysgit\git\selenium_test\login_err.png")
+			self.browser.get_screenshot_as_file("F:\selenium_test\login_err.png")
 			print "element not finded yet."
 			time.sleep(2)
 
@@ -117,7 +120,7 @@ class Game(unittest.TestCase):
 			self.accept_next_alert = True
 
 	def tearDown(self):
-		self.browser.quit()
+		#self.browser.quit()
 		self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
@@ -126,12 +129,13 @@ if __name__ == "__main__":
 	suite.addTest(Game("test_cookie"))
 	suite.addTest(Game("test_login"))
 	socket_client.socket_client()
-	rep = file('D:\msysgit\msysgit\git\selenium_test\log.html', 'wb')
-	runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
+	#rep = file('F:\selenium_test\log.html', 'wb')
+	#runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
 
-	#runing test
-	#runner = unittest.TextTestRunner()
+#runing test
+	runner = unittest.TextTestRunner()
 	runner.run(suite)
+
 
 
 
