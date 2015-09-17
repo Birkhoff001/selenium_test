@@ -28,27 +28,33 @@ class Game(unittest.TestCase):
 		username = "allen"
 		passwd = "limi"
 		#identifying_code = image_game()
+		#try:
+		self.browser.find_element_by_id('username').send_keys(username)
+		self.browser.find_element_by_id('password').send_keys(passwd)
+		self.browser.find_element_by_id('codes').send_keys()
+		
 		try:
-			self.browser.find_element_by_id('username').send_keys(username)
-			self.browser.find_element_by_id('password').send_keys(passwd)
-			self.browser.find_element_by_id('codes').send_keys()
-			self.browser.find_element_by_id('rememberPswd').value(168)
-			self.browser.find_element_by_class_name('linkbtn-text').click(identifying_code)
-			if (self.browser.find_element_by_xpath("//span[@id='randImage']/input") == NULL):
-				image = self.browser.find_element_by_xpath("//span[@id='randImage']/input").get_attribute("src")
-				print "screenshot the image."
-				#save the image
-				image_save = open(image, 'wb').write(data)
-				image_save.flush()
-				image_save.close()
-			else:
-				print "not found identifying code."
+			print "11111111"			
+			image = self.browser.find_element_by_xpath("//img[@id='randImage']").get_attribute("src")
+			print image
+			print "screenshot the image."
+			#save the image
+			image_save = open(image, 'wb').write()
+			image_save.flush()
+			image_save.close()
+		except Exception, e:
+			print "not found identifying code."
 
-			print "click login button."
-		except:
-			self.browser.get_screenshot_as_file("F:\selenium_test\login_err.png")
-			print "element not finded yet."
-			time.sleep(2)
+		socket_client.socket_client(image)
+		self.browser.find_element_by_id('rememberPswd')
+		self.browser.find_element_by_xpath("//option[@value='168']").click()
+		self.browser.find_element_by_class_name("linkbtn").click()
+
+		print "click login button."
+		#except:
+		#	self.browser.get_screenshot_as_file("F:\selenium_test\login_err.png")
+		#	print "element not finded yet."
+		#	time.sleep(2)
 
 	def test_register(self):
 		try:
@@ -120,7 +126,8 @@ class Game(unittest.TestCase):
 			self.accept_next_alert = True
 
 	def tearDown(self):
-		#self.browser.quit()
+		time.sleep(5)
+		self.browser.quit()
 		self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
@@ -128,7 +135,7 @@ if __name__ == "__main__":
 	suite = unittest.TestSuite()
 	suite.addTest(Game("test_cookie"))
 	suite.addTest(Game("test_login"))
-	socket_client.socket_client()
+	#socket_client.socket_client()
 	#rep = file('F:\selenium_test\log.html', 'wb')
 	#runner = HTMLTestRunner.HTMLTestRunner(stream=rep, title='Report_title', description='Report_description')
 

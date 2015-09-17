@@ -2,7 +2,7 @@
 import socket
 import sys
 import game
-def socket_client():
+def socket_client(image):
 	try:
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	except Exception, e:
@@ -18,14 +18,13 @@ def socket_client():
 		print 'Hostname could not be resolved.' + str(e)
 
 	print host + " " + remote_ip + "..."
+	print "aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 	s.connect((remote_ip, port))
 	print 'Socket connect to' + " " + host
 	s.send(image)
 	data = s.recv(1024)
 	print "Reply from server------%s" %data
-
-	
 
 if __name__ == "__main__":
 	socket_client()
