@@ -2,7 +2,12 @@
 #socket_server
 import socket
 import sys
-from image_test import *
+from image_game import *
+import urllib
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('utf8')
+
 def socket_server():
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,24 +28,21 @@ def socket_server():
 
     s.listen(10)
     print 'Socket listening...'
-
     try:
+        localDir = './'
+        imageName = 'image_download.jpg'
+        loadImage = localDir + imageName
         conn, addr = s.accept()
+        print "Server connected to %s------------" %str(addr[0])
+        data = client.recv(1024)
+        print "Server receive data:%s------------" %data
+#download image
+        urllib.urlretrieve(url, loadImage)
+        print "downloading..."
     except Exception, e:
-        print 'accept connect failed...' + str(e)
-    print 'Connected with' + " " + str(addr[0])
-
-    while True:
-        try:
-            if:
-                client, ipaddr = s.accept()
-            print "Got a connect from %s" %str(ipaddr)
-            if:
-                data = client.recv(1024)
-            print "receive data:%s" %data
-            client.send("echo:" + data)
-            image_game()
-            client.close()
+        print 'download is bad!!' + str(e)
+        client.send()
+        client.close()
 
 
 if __name__ == "__main__":

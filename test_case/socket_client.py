@@ -21,12 +21,13 @@ def socket_client(image):
 	print "aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 	s.connect((remote_ip, port))
-	print 'Socket connect to' + " " + host
+	print 'client connect to' + " " + host
 	s.send(image)
+	print 'client send send send to-----------'
 	data = s.recv(1024)
 	print "Reply from server------%s" %data
 
 if __name__ == "__main__":
-	socket_client()
+	socket_client(image)
 
 

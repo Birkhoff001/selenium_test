@@ -7,6 +7,10 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 import HTMLTestRunner
 import socket_client
+import mdcode
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('utf-8')
 
 class Game(unittest.TestCase):
 	def setUp(self):
@@ -37,11 +41,14 @@ class Game(unittest.TestCase):
 			print "11111111"			
 			image = self.browser.find_element_by_xpath("//img[@id='randImage']").get_attribute("src")
 			print image
-			print "screenshot the image."
-			#save the image
-			image_save = open(image, 'wb').write()
+			print "get the image."
+			mdcode(image)
+#save the image
+			'''image_save = open(image, 'wb').write()
+			print "save save save--------------"
 			image_save.flush()
-			image_save.close()
+			print "flush flush flush------------"
+			image_save.close()'''
 		except Exception, e:
 			print "not found identifying code."
 
@@ -133,7 +140,7 @@ class Game(unittest.TestCase):
 if __name__ == "__main__":
 	#structure test suites
 	suite = unittest.TestSuite()
-	suite.addTest(Game("test_cookie"))
+	#suite.addTest(Game("test_cookie"))
 	suite.addTest(Game("test_login"))
 	#socket_client.socket_client()
 	#rep = file('F:\selenium_test\log.html', 'wb')
