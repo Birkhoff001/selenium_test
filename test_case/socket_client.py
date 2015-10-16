@@ -4,11 +4,11 @@ import sys
 import game
 def socket_client(image):
 	try:
-		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	except Exception, e:
 		print 'Failed to create socket.' + str(e)
 
-	print 'Socket create successful.'
+	print 'Socket create successful-----1.'
 
 	host = '10.0.253.149'
 	port = 9118
@@ -20,11 +20,11 @@ def socket_client(image):
 	print host + " " + remote_ip + "..."
 	print "aaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-	s.connect((remote_ip, port))
+	c.connect((remote_ip, port))
 	print 'client connect to' + " " + host
-	s.send(image)
+	c.send(image)
 	print 'client send send send to-----------'
-	data = s.recv(1024)
+	data = c.recv(1024)
 	print "Reply from server------%s" %data
 
 if __name__ == "__main__":

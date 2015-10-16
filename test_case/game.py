@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 import HTMLTestRunner
 import socket_client
-import mdcode
+#import mdcode
 #import sys
 #reload(sys)
 #sys.setdefaultencoding('utf-8')
@@ -39,10 +39,19 @@ class Game(unittest.TestCase):
 		
 		try:
 			print "11111111"			
-			image = self.browser.find_element_by_xpath("//img[@id='randImage']").get_attribute("src")
-			print image
+			image_get = self.browser.find_element_by_xpath("//img[@id='randImage']").get_attribute("src")
+			print image_get
 			print "get the image."
-			mdcode(image)
+			print(isinstance(image_get, unicode))
+			print "22222222"
+			time.sleep(2)
+			image = image_get.encode('utf-8')
+			print "encode encode---------"
+			print image
+			print(isinstance(image, unicode))
+			print "33333333"
+			#image.write(image2)
+			#image.close()
 #save the image
 			'''image_save = open(image, 'wb').write()
 			print "save save save--------------"
@@ -51,8 +60,10 @@ class Game(unittest.TestCase):
 			image_save.close()'''
 		except Exception, e:
 			print "not found identifying code."
+		print "start connect socket------------"
 
 		socket_client.socket_client(image)
+		print "send image--------"
 		self.browser.find_element_by_id('rememberPswd')
 		self.browser.find_element_by_xpath("//option[@value='168']").click()
 		self.browser.find_element_by_class_name("linkbtn").click()
