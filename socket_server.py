@@ -22,7 +22,7 @@ def socket_server():
     try:
         s.bind((host, port))
     except Exception, e:
-        print 'Bind failed.' + str(e)
+        print 'Bind failed...' + str(e)
     
     print 'Socket bind complete.'
 
@@ -35,36 +35,44 @@ def socket_server():
         print "2222" + imageName
         loadImage = localDir + imageName
         print "3333" + loadImage
-        Binary_change(imageName)
         conn, addr = s.accept()
-        print "Server connected to %s------------" %Str(addr[0])
+        print "Server connected to %s------------" %str(addr[0][1])
         data = client.recv(1024)
         print "Server receive data:%s------------" %data
+        urllib.urlretrieve(url, loadImage)
+        print " url = " + url
+        Binary_change(imageName)
         '''localDir = './'
         imageName = 'image_download.jpg'
         loadImage = localDir + imageName'''
 #download image
-        urllib.urlretrieve(url, loadImage)
         print "download successful......"
     except Exception, e:
         print 'download is bad!!' + str(e)
-        client.send()
-        client.close()
+    client.send()
+    client.close()
+    s.close()
 def Binary_change(loadImage):
     print "4444"
-    binafile = str(open('loadImage', 'rb'))
+    binafile = str(open(loadImage, 'rb'))
     print "open binary image---------" + binafile
-    binafile_ll = binafile.read()
+    binafile_w = binafile.write(pack("i", binafile))
+    print "binary w = " + binafile_w
+    binafile_ll = binafile_w.read(4)
+    print " ll = " + binafile_ll
+    #print struct.unpack('i', binafile).read(62)
+    #binafile_ll = (binafile.read())
     print "read binary image---------" + binafile_ll
-    #print "read binary image---------" + binafile_ll
-    image = bin(int(hexstr, 16))[2:]
-    print 'bin:', image, type(image)
+    #image = bin(int(hexstr, 16))[2:]
+    #print 'bin:', image, type(image)
+    image = unpack('i', binafile_ll)[0]
     print "binary successful-----------"
     #print(chardet.detect(url_image))
 
 if __name__ == "__main__":
     socket_server()
     Binary_change()
+    image_game()
 
 
 
