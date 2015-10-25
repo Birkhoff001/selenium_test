@@ -29,27 +29,18 @@ def socket_server():
     s.listen(10)
     print 'Socket listening...'
     try:
-        localDir = './'
-        print "1111" + localDir
-        imageName = 'image_download.jpg'
-        print "2222" + imageName
-        loadImage = localDir + imageName
-        print "3333" + loadImage
-        Binary_change(imageName)
+        path = './image_download.png'
         conn, addr = s.accept()
         print "Server connected to %s------------" %Str(addr[0])
         data = client.recv(1024)
         print "Server receive data:%s------------" %data
-        '''localDir = './'
-        imageName = 'image_download.jpg'
-        loadImage = localDir + imageName'''
-#download image
-        urllib.urlretrieve(url, loadImage)
+        #download image
+        urllib.urlretrieve(data, path)
         print "download successful......"
+        Binary_change(imageName)
     except Exception, e:
         print 'download is bad!!' + str(e)
-        client.send()
-        client.close()
+    s.close()
 def Binary_change(loadImage):
     print "4444"
     binafile = str(open('loadImage', 'rb'))
